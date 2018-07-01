@@ -1,6 +1,6 @@
 /// This is made for hdac Hackerton in 2018.
 /// Made by Team Block In
-/// Ver 1.3
+/// Ver 1.4
 pragma solidity ^0.4.0;
 contract hdac{
     
@@ -117,10 +117,6 @@ contract hdac{
    }
    
    function Checkin(uint _HomeIndex, address _To) public {
-       /*if(homes[_HomeIndex].HomeOwner != msg.sender)
-       {
-           return;
-       }*/
        require(homes[_HomeIndex].HomeOwner == msg.sender);
        if(homes[_HomeIndex].OnMarket == false)
        {
@@ -152,7 +148,13 @@ contract hdac{
    }
    
    function DoPay(address _CustomerAddress,uint _HomeIndex) payable public {
+       require(customers[_CustomerAddress].TotalPrice < customers[_CustomerAddress].Deposit);
+       require(customers[_CustomerAddress].Deposit < Balance);
        homes[_HomeIndex].HomeOwner.transfer(customers[_CustomerAddress].TotalPrice);
+       if((customers[_CustomerAddress].Deposit - customers[_CustomerAddress].TotalPrice) > Balance)
+       {
+           return;
+       }
        _CustomerAddress.transfer(customers[_CustomerAddress].Deposit - customers[_CustomerAddress].TotalPrice);
        Balance = Balance - customers[_CustomerAddress].Deposit;
        customers[_CustomerAddress].Deposit = 0;
@@ -241,3 +243,4 @@ contract hdac{
 
 
 }
+
