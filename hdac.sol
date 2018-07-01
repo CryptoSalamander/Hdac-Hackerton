@@ -155,6 +155,7 @@ contract hdac{
        homes[_HomeIndex].HomeOwner.transfer(customers[_CustomerAddress].TotalPrice);
        _CustomerAddress.transfer(customers[_CustomerAddress].Deposit - customers[_CustomerAddress].TotalPrice);
        Balance = Balance - customers[_CustomerAddress].Deposit;
+       customers[_CustomerAddress].Deposit = 0;
    }
    
    function DeviceOn(uint _HomeIndex,address _DeviceAddress) public{
