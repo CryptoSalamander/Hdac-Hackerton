@@ -1,0 +1,34 @@
+{
+  "name": "blockinn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean:back": "rm -rf ./dist/back ./dist/common",
+    "clean:front": "rm -rf ./dist/front ./dist/common",
+    "clean": "npm run clean:back && npm run clean:front",
+    "build-back": "npm run clean:back && babel ./back ./common --out-dir ./dist/back --ignore ./node_modules",
+    "build-front": "npm run clean:front",
+    "build": "npm run clean && babel ./back ./common --out-dir ./dist/back --ignore ./node_modules",
+    "start": "npm run build && babel-node ./dist/back/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "JSON": "^1.0.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "forever": "^0.15.3",
+    "solc": "^0.4.24",
+    "web3": "^1.0.0-beta.34"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "rimraf": "^2.6.2"
+  }
+}
